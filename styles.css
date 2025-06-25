@@ -1,0 +1,360 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', serif;
+    background: #f6f3ee;
+    color: #3a2c1a;
+    min-height: 100vh;
+}
+
+.storybook-bg {
+    background: repeating-linear-gradient(135deg, #f6f3ee 0 40px, #ede6db 40px 80px);
+    min-height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.95);
+    border-radius: 32px;
+    box-shadow: 0 8px 32px rgba(60,40,20,0.10);
+    border: 2.5px solid #e2d6c2;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 2rem 0 1rem 0;
+    position: relative;
+}
+
+.title {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2d2a26;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.3rem;
+    text-shadow: 0 2px 0 #e2d6c2;
+}
+
+.subtitle {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    color: #6b5c3e;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.decorative-divider {
+    width: 120px;
+    height: 18px;
+    margin: 0.5rem auto 0 auto;
+    background: url('data:image/svg+xml;utf8,<svg width="120" height="18" xmlns="http://www.w3.org/2000/svg"><path d="M10 9 Q 60 18 110 9" stroke="%236b5c3e" stroke-width="2.5" fill="none"/><circle cx="10" cy="9" r="2.5" fill="%236b5c3e"/><circle cx="110" cy="9" r="2.5" fill="%236b5c3e"/></svg>') no-repeat center/contain;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.instruction-card {
+    background: #f9f7f3;
+    border-radius: 24px;
+    box-shadow: 0 4px 18px rgba(60,40,20,0.08);
+    border: 2px solid #e2d6c2;
+    padding: 2.5rem 2rem 2rem 2rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    min-height: 220px;
+    overflow: hidden;
+}
+
+.step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.step-number {
+    background: #e2d6c2;
+    color: #3a2c1a;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'EB Garamond', serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border: 2px solid #bfae8e;
+    box-shadow: 0 2px 6px #e2d6c2;
+}
+
+.step-label {
+    color: #6b5c3e;
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.instruction-content {
+    margin-bottom: 2rem;
+    transition: all 0.4s cubic-bezier(.4,2,.6,1);
+}
+
+.instruction-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2d2a26;
+    margin-bottom: 0.7rem;
+}
+
+.instruction-text {
+    font-size: 1.1rem;
+    color: #4d3b1a;
+    font-family: 'Inter', serif;
+    line-height: 1.7;
+}
+
+.navigation {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 0.7rem 2.2rem;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(.4,2,.6,1);
+    min-width: 120px;
+    box-shadow: 0 2px 8px #e2d6c2;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #bfae8e 0%, #e2d6c2 100%);
+    color: #3a2c1a;
+    border: 2px solid #bfae8e;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #ede6db;
+    color: #2d2a26;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #f6f3ee;
+    color: #6b5c3e;
+    border: 2px solid #e2d6c2;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #ede6db;
+    color: #3a2c1a;
+    transform: translateY(-2px);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.checklist-section {
+    background: #f9f7f3;
+    border-radius: 20px;
+    border: 2px solid #e2d6c2;
+    box-shadow: 0 2px 10px #e2d6c2;
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.checklist-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2d2a26;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.01em;
+}
+
+.checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+}
+
+.checklist-column h4 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #6b5c3e;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1.5px dashed #bfae8e;
+}
+
+.checklist {
+    list-style: none;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px dashed #ede6db;
+    font-family: 'Inter', serif;
+    font-size: 1rem;
+    color: #4d3b1a;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.checklist-item:hover {
+    background: #f6f3ee;
+    border-radius: 8px;
+    padding-left: 0.5rem;
+}
+
+.checklist-item input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    border: 2.5px solid #bfae8e;
+    border-radius: 7px;
+    background: #f6f3ee;
+    cursor: pointer;
+    accent-color: #bfae8e;
+    margin-right: 0.5rem;
+    box-shadow: 0 1px 2px #e2d6c2;
+    appearance: none;
+    position: relative;
+}
+
+.checklist-item input[type="checkbox"]:checked {
+    background: #e2d6c2;
+    border-color: #bfae8e;
+}
+
+.checklist-item input[type="checkbox"]:checked:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    width: 7px;
+    height: 13px;
+    border: solid #3a2c1a;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checklist-item label {
+    flex: 1;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #4d3b1a;
+    font-family: 'Inter', serif;
+    transition: color 0.3s;
+}
+
+.checklist-item input[type="checkbox"]:checked + label {
+    color: #6b5c3e;
+    font-style: italic;
+    text-decoration: line-through;
+    text-decoration-color: #bfae8e;
+    text-decoration-thickness: 2px;
+}
+
+#storybook-celebration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    margin-top: 1.5rem;
+}
+
+.footer {
+    text-align: center;
+    padding: 2rem 0 0.5rem 0;
+    color: #6b5c3e;
+    font-size: 1rem;
+    font-family: 'EB Garamond', serif;
+    margin-top: 2rem;
+    border-top: 1.5px dashed #e2d6c2;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    .title {
+        font-size: 2rem;
+    }
+    .instruction-card {
+        padding: 1.2rem;
+    }
+    .checklist-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .navigation {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.3rem;
+    }
+    .instruction-title {
+        font-size: 1.1rem;
+    }
+    .instruction-text {
+        font-size: 0.98rem;
+    }
+    .checklist-section {
+        padding: 1rem;
+    }
+}
+
+.instruction-content {
+    animation: fadeInUp 0.5s cubic-bezier(.4,2,.6,1);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

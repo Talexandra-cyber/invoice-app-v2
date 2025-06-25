@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple Makes an AB&J - Goop Kids</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="storybook-bg">
+        <div class="container">
+            <header class="header" aria-label="Page Header">
+                <h1 class="title">Apple Makes an AB&J</h1>
+                <p class="subtitle">A Goop Kids Storybook Recipe</p>
+                <div class="decorative-divider" aria-hidden="true"></div>
+            </header>
+
+            <main class="main-content" aria-label="Main Content">
+                <section class="instruction-card" aria-label="Instruction Step">
+                    <div class="step-indicator">
+                        <span class="step-number" id="stepNumber">1</span>
+                        <span class="step-label">of 7</span>
+                    </div>
+                    <div class="instruction-content">
+                        <h2 class="instruction-title" id="instructionTitle">Get Your Station Ready</h2>
+                        <p class="instruction-text" id="instructionText">Okay, first, let's get your station ready. Put the bread, almond butter, jam, cutting board, and your spreader all on the counter.</p>
+                    </div>
+                    <div class="navigation">
+                        <button class="btn btn-secondary" id="prevBtn" disabled aria-label="Previous Step">Previous</button>
+                        <button class="btn btn-primary" id="nextBtn" aria-label="Next Step">Next</button>
+                    </div>
+                </section>
+
+                <aside class="checklist-section" aria-label="Ingredients and Tools Checklist">
+                    <h3 class="checklist-title">Ingredients & Tools</h3>
+                    <div class="checklist-grid">
+                        <div class="checklist-column">
+                            <h4>Ingredients</h4>
+                            <ul class="checklist" id="ingredientsList">
+                                <li class="checklist-item" data-item="bread">
+                                    <input type="checkbox" id="bread">
+                                    <label for="bread">Two slices of gluten-free bread</label>
+                                </li>
+                                <li class="checklist-item" data-item="almond-butter">
+                                    <input type="checkbox" id="almond-butter">
+                                    <label for="almond-butter">One jar of organic, smooth almond butter</label>
+                                </li>
+                                <li class="checklist-item" data-item="jam">
+                                    <input type="checkbox" id="jam">
+                                    <label for="jam">One jar of organic raspberry jam</label>
+                                </li>
+                                <li class="checklist-item" data-item="raspberries">
+                                    <input type="checkbox" id="raspberries">
+                                    <label for="raspberries">Fresh raspberries for garnish</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checklist-column">
+                            <h4>Tools & Props</h4>
+                            <ul class="checklist" id="toolsList">
+                                <li class="checklist-item" data-item="cutting-board">
+                                    <input type="checkbox" id="cutting-board">
+                                    <label for="cutting-board">Large wooden cutting board</label>
+                                </li>
+                                <li class="checklist-item" data-item="spreader">
+                                    <input type="checkbox" id="spreader">
+                                    <label for="spreader">Kid-safe spreader or butter knife</label>
+                                </li>
+                                <li class="checklist-item" data-item="spoon">
+                                    <input type="checkbox" id="spoon">
+                                    <label for="spoon">A spoon</label>
+                                </li>
+                                <li class="checklist-item" data-item="plate">
+                                    <input type="checkbox" id="plate">
+                                    <label for="plate">Serving plate (e.g., from Heath Ceramics)</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </aside>
+                <div id="storybook-celebration" aria-live="polite" style="display:none;"></div>
+            </main>
+
+            <footer class="footer" aria-label="Page Footer">
+                <p>Goop Kids - A story of clean ingredients, mindful techniques, and a little bit of magic.</p>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

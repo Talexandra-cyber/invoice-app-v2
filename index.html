@@ -3,90 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple Makes an AB&J - Goop Kids</title>
+    <title>Simple Questionnaire</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Minimal additional styles for the questionnaire */
+        body {
+            font-family: "Inter", system-ui, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;          /* Dark background */
+            color: #e0e0e0;                     /* Light text */
+        }
+        .quiz-container {
+            background: #1e1e1e;               /* Slightly lighter panel */
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        .question {
+            font-size: 1.375rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .navigation button {
+            flex: 1;
+            padding: 1rem 1.25rem;             /* Larger tap target */
+            font-size: 1.125rem;               /* Larger text */
+            min-height: 48px;                  /* WCAG recommended minimum */
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s;
+        }
+        .navigation button:disabled {
+            background: #333;                  /* Muted when disabled */
+            color: #777;
+            cursor: not-allowed;
+        }
+        .navigation .back {
+            background: #263238;
+            color: #e0e0e0;
+        }
+        .navigation .next {
+            background: #2e7d32;              /* Emerald accent */
+            color: #fff;
+        }
+        .navigation button:not(:disabled):active {
+            transform: scale(0.97);
+        }
+        /* Hidden invoice preview – looks like a Word invoice */
+        #invoicePreview {
+            display: none;                     /* Hidden by default */
+            width: 100%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            background: #ffffff;
+            color: #000;
+            font-family: "Times New Roman", serif;
+            padding: 2rem 3rem;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        }
+        #invoicePreview table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        #invoicePreview th,
+        #invoicePreview td {
+            border: 1px solid #000;
+            padding: 4px 6px;
+            text-align: left;
+        }
+        #invoicePreview th {
+            font-weight: 700;
+        }
+        #invoicePreview .invoice-total {
+            font-weight: 700;
+            text-align: right;
+            font-size: 1.05rem;
+        }
+        .answer-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1.125rem;
+            border-radius: 6px;
+            border: 1px solid #555;
+            background: #00000022;
+            color: #e0e0e0;
+            margin-bottom: 1.5rem;
+        }
+        .answer-input::placeholder {
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <div class="storybook-bg">
-        <div class="container">
-            <header class="header" aria-label="Page Header">
-                <h1 class="title">Apple Makes an AB&J</h1>
-                <p class="subtitle">A Goop Kids Storybook Recipe</p>
-                <div class="decorative-divider" aria-hidden="true"></div>
-            </header>
-
-            <main class="main-content" aria-label="Main Content">
-                <section class="instruction-card" aria-label="Instruction Step">
-                    <div class="step-indicator">
-                        <span class="step-number" id="stepNumber">1</span>
-                        <span class="step-label">of 7</span>
-                    </div>
-                    <div class="instruction-content">
-                        <h2 class="instruction-title" id="instructionTitle">Get Your Station Ready</h2>
-                        <p class="instruction-text" id="instructionText">Okay, first, let's get your station ready. Put the bread, almond butter, jam, cutting board, and your spreader all on the counter.</p>
-                    </div>
-                    <div class="navigation">
-                        <button class="btn btn-secondary" id="prevBtn" disabled aria-label="Previous Step">Previous</button>
-                        <button class="btn btn-primary" id="nextBtn" aria-label="Next Step">Next</button>
-                    </div>
-                </section>
-
-                <aside class="checklist-section" aria-label="Ingredients and Tools Checklist">
-                    <h3 class="checklist-title">Ingredients & Tools</h3>
-                    <div class="checklist-grid">
-                        <div class="checklist-column">
-                            <h4>Ingredients</h4>
-                            <ul class="checklist" id="ingredientsList">
-                                <li class="checklist-item" data-item="bread">
-                                    <input type="checkbox" id="bread">
-                                    <label for="bread">Two slices of gluten-free bread</label>
-                                </li>
-                                <li class="checklist-item" data-item="almond-butter">
-                                    <input type="checkbox" id="almond-butter">
-                                    <label for="almond-butter">One jar of organic, smooth almond butter</label>
-                                </li>
-                                <li class="checklist-item" data-item="jam">
-                                    <input type="checkbox" id="jam">
-                                    <label for="jam">One jar of organic raspberry jam</label>
-                                </li>
-                                <li class="checklist-item" data-item="raspberries">
-                                    <input type="checkbox" id="raspberries">
-                                    <label for="raspberries">Fresh raspberries for garnish</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="checklist-column">
-                            <h4>Tools & Props</h4>
-                            <ul class="checklist" id="toolsList">
-                                <li class="checklist-item" data-item="cutting-board">
-                                    <input type="checkbox" id="cutting-board">
-                                    <label for="cutting-board">Large wooden cutting board</label>
-                                </li>
-                                <li class="checklist-item" data-item="spreader">
-                                    <input type="checkbox" id="spreader">
-                                    <label for="spreader">Kid-safe spreader or butter knife</label>
-                                </li>
-                                <li class="checklist-item" data-item="spoon">
-                                    <input type="checkbox" id="spoon">
-                                    <label for="spoon">A spoon</label>
-                                </li>
-                                <li class="checklist-item" data-item="plate">
-                                    <input type="checkbox" id="plate">
-                                    <label for="plate">Serving plate (e.g., from Heath Ceramics)</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
-                <div id="storybook-celebration" aria-live="polite" style="display:none;"></div>
-            </main>
-
-            <footer class="footer" aria-label="Page Footer">
-                <p>Goop Kids - A story of clean ingredients, mindful techniques, and a little bit of magic.</p>
-            </footer>
+    <div class="quiz-container">
+        <div id="question" class="question">Loading...</div>
+        <input id="answerInput" class="answer-input" type="text" placeholder="" />
+        <div class="navigation">
+            <button id="backBtn" class="back" disabled>Back</button>
+            <button id="nextBtn" class="next">Next</button>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Hidden Invoice Preview -->
+    <section id="invoicePreview">
+        <h2 id="businessNameHeader">Verity Investigative Group Inc.</h2>
+        <p>
+            122 Pixel<br>
+            Irvine, CA 92618<br>
+            Phone: (949) 500-1610
+        </p>
+
+        <table>
+            <tr>
+                <th style="width:25%;">INVOICE #</th>
+                <td id="invoiceNumber">-</td>
+                <th style="width:25%;">DATE</th>
+                <td id="invoiceDate">-</td>
+            </tr>
+            <tr>
+                <th>CUSTOMER ID</th>
+                <td id="customerId">-</td>
+                <th>TERMS</th>
+                <td>Upon Receipt</td>
+            </tr>
+        </table>
+
+        <h3 style="margin-top:2rem;">Bill To</h3>
+        <p id="billTo">-</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th style="width:80px;">Hours</th>
+                    <th style="width:80px;">$/Hour</th>
+                    <th style="width:100px;">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td id="invoiceDescription">-</td>
+                    <td id="invoiceHours">-</td>
+                    <td id="invoiceRate">-</td>
+                    <td id="invoiceAmount">-</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="invoice-total">Cost</td>
+                    <td id="invoiceCosts">-</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="invoice-total">Subtotal</td>
+                    <td id="invoiceTotal">-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="margin-top:2rem; font-style:italic;">Thank You for the Opportunity to be of Service!!</p>
+
+        <div style="display:flex; gap:1rem; margin-top:2rem;">
+            <button id="savePdfBtn" class="next" style="flex:1; padding:0.75rem 1.5rem;">Save as PDF</button>
+            <button id="emailBtn" class="back" style="flex:1; padding:0.75rem 1.5rem; background:#455a64; color:#fff;">Send via Gmail</button>
+        </div>
+    </section>
+
+    <!-- Reminder Modal -->
+    <div id="reminderModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; z-index:1000;">
+        <div style="background:#1e1e1e; color:#fff; padding:2rem 2.5rem; border-radius:12px; max-width:400px; text-align:center; box-shadow:0 6px 18px rgba(0,0,0,0.5);">
+            <p style="margin-bottom:1.5rem; font-size:1rem; line-height:1.4;">IMPORTANT: Please remember to manually download and attach the PDF before sending.</p>
+            <button id="continueBtn" class="next" style="padding:0.75rem 1.5rem; width:100%;">Continue</button>
+        </div>
+    </div>
+
+    <!-- PDF generation libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
+    <script src="questionnaire.js"></script>
 </body>
 </html> 

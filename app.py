@@ -1,6 +1,7 @@
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, request, redirect, url_for, session
 
 app = Flask(__name__)
+app.secret_key = "replace_with_a_secure_random_key"
 
 HTML = '''
 <!DOCTYPE html>
@@ -101,9 +102,173 @@ HTML = '''
 </html>
 '''
 
+# ------------------ NEW LOGIN TEMPLATES ------------------
+LOGIN_HTML = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: #ffffff;
+            padding: 2rem 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 380px;
+        }
+        h2 {
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background: #2e7d32;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.15s;
+        }
+        button:hover {
+            background: #27642b;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+        .error {
+            color: #c62828;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+        <form method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+    </div>
+</body>
+</html>
+'''
+
+DASHBOARD_HTML = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fafafa;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #2e7d32;
+            color: #fff;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        a.logout {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome, {{ user }}</h1>
+        <a href="{{ url_for('logout') }}" class="logout">Logout</a>
+    </header>
+    <main>
+        <p>You have successfully logged in. 🎉</p>
+    </main>
+</body>
+</html>
+'''
+# ------------------ END LOGIN TEMPLATES ------------------
+
+# Dummy credentials for demonstration purposes (username: admin, password: password)
+VALID_USERS = {"admin": "password"}
+
 @app.route('/')
 def home():
     return render_template_string(HTML)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        if username in VALID_USERS and VALID_USERS[username] == password:
+            session['user'] = username
+            return redirect(url_for('dashboard'))
+        else:
+            return render_template_string(LOGIN_HTML, error="Invalid username or password")
+    # GET
+    return render_template_string(LOGIN_HTML, error=None)
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user' not in session:
+        return redirect(url_for('login'))
+    return render_template_string(DASHBOARD_HTML, user=session['user'])
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True) 

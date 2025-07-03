@@ -3,196 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Questionnaire</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Login</title>
     <style>
-        /* Minimal additional styles for the questionnaire */
-        body {
-            font-family: "Inter", system-ui, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+        /* Centering setup */
+        * {
+            box-sizing: border-box;
             margin: 0;
-            background-color: #121212;          /* Dark background */
-            color: #e0e0e0;                     /* Light text */
+            padding: 0;
         }
-        .quiz-container {
-            background: #1e1e1e;               /* Slightly lighter panel */
-            padding: 2rem 3rem;
-            border-radius: 12px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-        }
-        .question {
-            font-size: 1.375rem;
-            line-height: 1.5;
-            margin-bottom: 2rem;
-        }
-        .navigation {
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
             display: flex;
-            justify-content: space-between;
-            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .navigation button {
-            flex: 1;
-            padding: 1rem 1.25rem;             /* Larger tap target */
-            font-size: 1.125rem;               /* Larger text */
-            min-height: 48px;                  /* WCAG recommended minimum */
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.25s, transform 0.15s;
-        }
-        .navigation button:disabled {
-            background: #333;                  /* Muted when disabled */
-            color: #777;
-            cursor: not-allowed;
-        }
-        .navigation .back {
-            background: #263238;
-            color: #e0e0e0;
-        }
-        .navigation .next {
-            background: #2e7d32;              /* Emerald accent */
-            color: #fff;
-        }
-        .navigation button:not(:disabled):active {
-            transform: scale(0.97);
-        }
-        /* Hidden invoice preview – looks like a Word invoice */
-        #invoicePreview {
-            display: none;                     /* Hidden by default */
+        .login-container {
             width: 100%;
-            max-width: 1200px;
-            margin: 2rem auto;
+            max-width: 360px;
+            padding: 2rem 2.5rem;
             background: #ffffff;
-            color: #000;
-            font-family: "Times New Roman", serif;
-            padding: 2rem 3rem;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        #invoicePreview table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-            font-size: 0.9rem;
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
         }
-        #invoicePreview th,
-        #invoicePreview td {
-            border: 1px solid #000;
-            padding: 4px 6px;
-            text-align: left;
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
         }
-        #invoicePreview th {
-            font-weight: 700;
+        .remember-me-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
         }
-        #invoicePreview .invoice-total {
-            font-weight: 700;
-            text-align: right;
-            font-size: 1.05rem;
-        }
-        .answer-input {
+        input[type="email"] {
             width: 100%;
             padding: 0.75rem 1rem;
-            font-size: 1.125rem;
+            border: 1px solid #ccc;
             border-radius: 6px;
-            border: 1px solid #555;
-            background: #00000022;
-            color: #e0e0e0;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
         }
-        .answer-input::placeholder {
-            color: #888;
+        button {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.25s;
+        }
+        button:hover {
+            background: #0069d9;
+        }
+        #error-message {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #d93025; /* Google red */
+            display: none;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="quiz-container">
-        <div id="question" class="question">Loading...</div>
-        <input id="answerInput" class="answer-input" type="text" placeholder="" />
-        <div class="navigation">
-            <button id="backBtn" class="back" disabled>Back</button>
-            <button id="nextBtn" class="next">Next</button>
+    <div class="login-container">
+        <h2>Welcome Back</h2>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="you@example.com" required>
+
+        <div class="remember-me-container">
+            <input type="checkbox" id="remember-me">
+            <label for="remember-me">Remember my email</label>
         </div>
+
+        <button id="login-btn">Email me a magic link</button>
+        <p id="error-message"></p>
     </div>
 
-    <!-- Hidden Invoice Preview -->
-    <section id="invoicePreview">
-        <h2 id="businessNameHeader">Verity Investigative Group Inc.</h2>
-        <p>
-            122 Pixel<br>
-            Irvine, CA 92618<br>
-            Phone: (949) 500-1610
-        </p>
-
-        <table>
-            <tr>
-                <th style="width:25%;">INVOICE #</th>
-                <td id="invoiceNumber">-</td>
-                <th style="width:25%;">DATE</th>
-                <td id="invoiceDate">-</td>
-            </tr>
-            <tr>
-                <th>CUSTOMER ID</th>
-                <td id="customerId">-</td>
-                <th>TERMS</th>
-                <td>Upon Receipt</td>
-            </tr>
-        </table>
-
-        <h3 style="margin-top:2rem;">Bill To</h3>
-        <p id="billTo">-</p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Description</th>
-                    <th style="width:80px;">Hours</th>
-                    <th style="width:80px;">$/Hour</th>
-                    <th style="width:100px;">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td id="invoiceDescription">-</td>
-                    <td id="invoiceHours">-</td>
-                    <td id="invoiceRate">-</td>
-                    <td id="invoiceAmount">-</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="invoice-total">Cost</td>
-                    <td id="invoiceCosts">-</td>
-                </tr>
-                <tr>
-                    <td colspan="3" class="invoice-total">Subtotal</td>
-                    <td id="invoiceTotal">-</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <p style="margin-top:2rem; font-style:italic;">Thank You for the Opportunity to be of Service!!</p>
-
-        <div style="display:flex; gap:1rem; margin-top:2rem;">
-            <button id="savePdfBtn" class="next" style="flex:1; padding:0.75rem 1.5rem;">Save as PDF</button>
-            <button id="emailBtn" class="back" style="flex:1; padding:0.75rem 1.5rem; background:#455a64; color:#fff;">Send via Gmail</button>
-        </div>
-    </section>
-
-    <!-- Reminder Modal -->
-    <div id="reminderModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); align-items:center; justify-content:center; z-index:1000;">
-        <div style="background:#1e1e1e; color:#fff; padding:2rem 2.5rem; border-radius:12px; max-width:400px; text-align:center; box-shadow:0 6px 18px rgba(0,0,0,0.5);">
-            <p style="margin-bottom:1.5rem; font-size:1rem; line-height:1.4;">IMPORTANT: Please remember to manually download and attach the PDF before sending.</p>
-            <button id="continueBtn" class="next" style="padding:0.75rem 1.5rem; width:100%;">Continue</button>
-        </div>
-    </div>
-
-    <!-- PDF generation libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-
-    <script src="questionnaire.js"></script>
+    <script src="login.js"></script>
 </body>
 </html> 

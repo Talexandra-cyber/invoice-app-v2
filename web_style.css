@@ -507,7 +507,7 @@ body {
     }
     
     .title {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
     
     .progress-container {
@@ -558,6 +558,22 @@ button:focus {
 
 textarea:focus {
     outline: none;
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .header {
+        padding: 1rem 0.75rem;
+    }
+    
+    .title {
+        font-size: 1.4rem;
+        line-height: 1.1;
+    }
+    
+    .subtitle {
+        font-size: 0.95rem;
+    }
 }
 
 /* Print styles */

@@ -133,6 +133,37 @@ h3 {
   box-shadow: 4px 4px 0px #A3EA71;
 }
 
+.voice-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.voice-controls label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #A3EA71;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#voice-selector {
+  background: #A3EA71;
+  color: #000000;
+  border: 3px solid #FA64B5;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 1rem;
+  box-shadow: 4px 4px 0px #FA64B5;
+  cursor: pointer;
+}
+
+#voice-selector:focus {
+  outline: none;
+  box-shadow: 4px 4px 0px #FA64B5, 0 0 0 2px #A3EA71;
+}
+
 #play-audio-btn {
   background: #A3EA71;
   color: #000000;
@@ -149,6 +180,7 @@ h3 {
   text-transform: uppercase;
   letter-spacing: 1px;
   box-shadow: 4px 4px 0px #FA64B5;
+  justify-content: center;
 }
 
 #play-audio-btn:hover {
@@ -181,5 +213,9 @@ h3 {
   .file-upload-label, #play-audio-btn {
     padding: 14px 24px;
     font-size: 1rem;
+  }
+  
+  .voice-controls {
+    gap: 0.75rem;
   }
 } 

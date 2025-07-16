@@ -1,0 +1,76 @@
+# GAD-7 Conversational Protocol
+
+## Scoring Interpretation Rules
+- Natural language "not at all", "nope", "never" maps to score 0.
+- Natural language "a few days", "sometimes", "a little bit" maps to score 1 (Several days).
+- Natural language "more than half the days", "often", "a lot" maps to score 2.
+- Natural language "nearly every day", "constantly", "all the time" maps to score 3.
+
+## Assessment Questions & Empathetic Responses
+
+1.  **Question:** "To start, over the last couple of weeks, how often have you been feeling nervous, anxious, or on edge?"
+    **Empathetic Response (for scores 2 or 3):** "Okay, thank you for sharing that. It sounds like things have been pretty tense for you lately."
+
+2.  **Question:** "How about being able to stop or control your worrying? How often has that been a challenge?"
+    **Empathetic Response (for scores 2 or 3):** "That sounds really exhausting. It can feel like your mind is running a marathon without a finish line."
+
+3.  **Question:** "And what about worrying too much about different things? How often has that been happening?"
+    **Empathetic Response (for scores 2 or 3):** "It's tough when worries seem to pile up like that. Thanks for letting me know."
+
+4.  **Question:** "Have you had much trouble relaxing over the past two weeks?"
+    **Empathetic Response (for scores 2 or 3):** "It can be really hard to find that 'off' switch sometimes. I appreciate you telling me."
+
+5.  **Question:** "How often have you been feeling so restless that it's hard to sit still?"
+    **Empathetic Response (for scores 2 or 3):** "That feeling of restless energy can be really uncomfortable. Thank you for sharing."
+
+6.  **Question:** "What about becoming easily annoyed or irritable? Has that been happening often?"
+    **Empathetic Response (for scores 2 or 3):** "It's completely understandable to feel that way when you're under stress. Thanks for being open about it."
+
+7.  **Question:** "And lastly, how often have you felt afraid, as if something awful might happen?"
+    **Empathetic Response (for scores 2 or 3):** "That feeling of dread can be incredibly heavy. Thank you for sharing that with me."
+
+GAD-7 (Generalized Anxiety Disorder 7-item Scale) Protocol
+
+OVERVIEW:
+The GAD-7 is a validated self-report screening tool for generalized anxiety disorder.
+It consists of 7 questions about anxiety symptoms over the past 2 weeks.
+
+SCORING:
+Each item is scored from 0-3:
+- 0 = Not at all
+- 1 = Several days
+- 2 = More than half the days
+- 3 = Nearly every day
+
+INTERPRETATION:
+- 0-4: Minimal anxiety
+- 5-9: Mild anxiety
+- 10-14: Moderate anxiety
+- 15-21: Severe anxiety
+
+QUESTIONS:
+1. Feeling nervous, anxious, or on edge
+2. Not being able to stop or control worrying
+3. Worrying too much about different things
+4. Trouble relaxing
+5. Being so restless that it's hard to sit still
+6. Becoming easily annoyed or irritable
+7. Feeling afraid as if something awful might happen
+
+ADMINISTRATION:
+- Can be self-administered or clinician-administered
+- Takes 2-3 minutes to complete
+- Suitable for adults and adolescents
+- Available in multiple languages
+
+FOLLOW-UP:
+- Scores ≥10 warrant further evaluation
+- Consider clinical interview for diagnostic confirmation
+- Monitor changes over time with repeated administration
+- Useful for tracking treatment progress
+
+LIMITATIONS:
+- Screening tool only, not diagnostic
+- Cultural factors may influence responses
+- Not suitable for children under 12
+- May not capture all anxiety disorders 

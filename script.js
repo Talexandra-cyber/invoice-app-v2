@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const imageUploader = document.getElementById('image-uploader');
   const imagePreview = document.getElementById('image-preview');
   const jsonOutput = document.getElementById('json-output');
+  const voiceSelector = document.getElementById('voice-selector');
+  
+  // Load available voices
+  loadVoices();
+  
+  // Load voices when they become available (some browsers load them asynchronously)
+  if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
+  }
+  
   imageUploader.addEventListener('change', async (event) => {
     const file = event.target.files[0];
     
@@ -23,6 +33,73 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+function loadVoices() {
+  const voiceSelector = document.getElementById('voice-selector');
+  const voices = speechSynthesis.getVoices();
+  
+  // Clear existing options
+  voiceSelector.innerHTML = '';
+  
+  if (voices.length === 0) {
+    voiceSelector.innerHTML = '<option value="">Loading voices...</option>';
+    return;
+  }
+  
+  // Filter to English voices and sort by quality/type
+  const englishVoices = voices.filter(voice => voice.lang.includes('en'));
+  
+  // Categorize voices
+  const premiumVoices = englishVoices.filter(voice => 
+    voice.name.includes('Google') || 
+    voice.name.includes('Microsoft') ||
+    !voice.localService
+  );
+  
+  const systemVoices = englishVoices.filter(voice => 
+    voice.localService && 
+    !voice.name.includes('Google') && 
+    !voice.name.includes('Microsoft')
+  );
+  
+  // Add premium voices first
+  if (premiumVoices.length > 0) {
+    const premiumGroup = document.createElement('optgroup');
+    premiumGroup.label = '🌟 Premium Voices';
+    premiumVoices.forEach(voice => {
+      const option = document.createElement('option');
+      option.value = voice.name;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      premiumGroup.appendChild(option);
+    });
+    voiceSelector.appendChild(premiumGroup);
+  }
+  
+  // Add system voices
+  if (systemVoices.length > 0) {
+    const systemGroup = document.createElement('optgroup');
+    systemGroup.label = '🔧 System Voices';
+    systemVoices.forEach(voice => {
+      const option = document.createElement('option');
+      option.value = voice.name;
+      option.textContent = `${voice.name} (${voice.lang})`;
+      systemGroup.appendChild(option);
+    });
+    voiceSelector.appendChild(systemGroup);
+  }
+  
+  // Select a good default voice (prefer British or premium voices)
+  const defaultVoice = englishVoices.find(voice => 
+    voice.name.includes('British') || 
+    voice.name.includes('UK') ||
+    voice.name.includes('Google') ||
+    voice.lang.includes('en-GB')
+  ) || englishVoices[0];
+  
+  if (defaultVoice) {
+    voiceSelector.value = defaultVoice.name;
+  }
+}
 
 async function analyzeImage(base64Image) {
   const jsonOutput = document.getElementById('json-output');
@@ -144,7 +221,11 @@ function sanitizeTextForSpeech(text) {
   // Step 1: Replace em-dashes and en-dashes with commas for natural pauses
   let cleanedText = text.replace(/[—–]/g, ',');
   
-  // Step 2: Remove emojis and other non-alphanumeric characters except standard punctuation
+  // Step 2: Simple Valley Girl replacements (no awkward commas)
+  cleanedText = cleanedText.replace(/\byeehaw\b/gi, "Yee haw");
+  cleanedText = cleanedText.replace(/\bomg\b/gi, "oh my god");
+  
+  // Step 3: Remove emojis and other non-alphanumeric characters except standard punctuation
   cleanedText = cleanedText.replace(/[^\w\s.,!?;:'"()-]/g, '');
   
   return cleanedText.trim();
@@ -245,21 +326,25 @@ async function playHypeAudio(text) {
       return;
     }
     
-    // Get the best available voice
-    const bestVoice = await getBestVoice();
+    // Get the selected voice from dropdown
+    const voiceSelector = document.getElementById('voice-selector');
+    const selectedVoiceName = voiceSelector.value;
+    
+    const voices = window.speechSynthesis.getVoices();
+    const selectedVoice = voices.find(voice => voice.name === selectedVoiceName);
     
     // Create a new speech synthesis utterance
     const utterance = new SpeechSynthesisUtterance(sanitizedText);
     
-    // Configure the voice settings for better quality
+    // Configure the voice settings for natural, energetic speech
     utterance.rate = 1.1; // Slightly faster for energy
-    utterance.pitch = 1.1; // Slightly higher pitch for excitement
+    utterance.pitch = 1.05; // Just slightly higher pitch
     utterance.volume = 1.0; // Full volume
     
-    // Set the selected high-quality voice
-    if (bestVoice) {
-      utterance.voice = bestVoice;
-      console.log('Using voice:', bestVoice.name);
+    // Set the selected voice
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+      console.log('Using selected voice:', selectedVoice.name);
     } else {
       console.log('Using default voice');
     }

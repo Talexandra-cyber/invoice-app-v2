@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branded QR Code Generator</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="logo">
+                <i class="fas fa-qrcode"></i>
+                QR Brand Studio
+            </h1>
+            <p class="subtitle">Create stunning branded QR codes in seconds</p>
+        </header>
+
+        <main class="main-content">
+            <div class="generator-section">
+                <div class="input-panel">
+                    <h2>Generate Your QR Code</h2>
+                    
+                    <div class="input-group">
+                        <label for="qr-input">Enter text or URL:</label>
+                        <textarea 
+                            id="qr-input" 
+                            placeholder="https://example.com or any text..."
+                            rows="3"
+                        ></textarea>
+                    </div>
+
+                    <div class="customization-panel">
+                        <h3>Customize Your Brand</h3>
+                        
+                        <div class="color-controls">
+                            <div class="color-group">
+                                <label for="foreground-color">Foreground Color:</label>
+                                <input type="color" id="foreground-color" value="#000000">
+                            </div>
+                            
+                            <div class="color-group">
+                                <label for="background-color">Background Color:</label>
+                                <input type="color" id="background-color" value="#ffffff">
+                            </div>
+                        </div>
+
+                        <div class="size-control">
+                            <label for="qr-size">Size:</label>
+                            <select id="qr-size">
+                                <option value="200">Small (200x200)</option>
+                                <option value="300" selected>Medium (300x300)</option>
+                                <option value="400">Large (400x400)</option>
+                                <option value="500">Extra Large (500x500)</option>
+                            </select>
+                        </div>
+
+                        <div class="logo-upload">
+                            <label for="logo-input">Add Logo (optional):</label>
+                            <input type="file" id="logo-input" accept="image/*">
+                            <div class="logo-preview" id="logo-preview"></div>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Generate QR Code
+                    </button>
+                </div>
+
+                <div class="preview-panel">
+                    <h2>Preview</h2>
+                    <div class="qr-display" id="qr-display">
+                        <div class="placeholder">
+                            <i class="fas fa-qrcode"></i>
+                            <p>Your QR code will appear here</p>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons" id="action-buttons" style="display: none;">
+                        <button id="download-btn" class="download-btn">
+                            <i class="fas fa-download"></i>
+                            Download PNG
+                        </button>
+                        <button id="download-svg-btn" class="download-btn secondary">
+                            <i class="fas fa-vector-square"></i>
+                            Download SVG
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2>Why Choose QR Brand Studio?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-palette"></i>
+                        <h3>Custom Colors</h3>
+                        <p>Match your brand colors perfectly</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-image"></i>
+                        <h3>Logo Integration</h3>
+                        <p>Add your logo to the center</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-download"></i>
+                        <h3>Multiple Formats</h3>
+                        <p>Download as PNG or SVG</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>Mobile Friendly</h3>
+                        <p>Works on any device</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 QR Brand Studio. Create amazing QR codes.</p>
+        </footer>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html> 

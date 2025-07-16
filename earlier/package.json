@@ -1,0 +1,48 @@
+{
+  "name": "qr-brand-studio",
+  "version": "1.0.0",
+  "description": "A modern, responsive web application for creating beautiful branded QR codes",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "npx http-server -p 8000",
+    "dev": "npx live-server --port=8000 --open=/index.html"
+  },
+  "keywords": [
+    "qr-code",
+    "qr-generator",
+    "brand",
+    "logo",
+    "javascript",
+    "html5",
+    "css3",
+    "responsive",
+    "web-app"
+  ],
+  "author": "QR Brand Studio Team",
+  "license": "MIT",
+  "homepage": "https://github.com/your-username/qr-brand-studio",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/qr-brand-studio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/qr-brand-studio/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "last 2 Chrome versions",
+    "last 2 Firefox versions",
+    "last 2 Safari versions",
+    "last 2 Edge versions",
+    "iOS >= 11",
+    "Android >= 8"
+  ]
+} 

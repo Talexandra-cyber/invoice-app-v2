@@ -19,7 +19,7 @@ class MentalHealthChatbot {
         
         this.initializeElements();
         this.setupEventListeners();
-        this.showWelcomeModal();
+        this.startWelcomeSequence();
     }
     
     initializeElements() {
@@ -29,7 +29,6 @@ class MentalHealthChatbot {
         this.statusText = document.getElementById('statusText');
         this.charCount = document.getElementById('charCount');
         this.loadingOverlay = document.getElementById('loadingOverlay');
-        this.welcomeModal = document.getElementById('welcomeModal');
     }
     
     setupEventListeners() {
@@ -62,12 +61,37 @@ class MentalHealthChatbot {
         });
     }
     
-    showWelcomeModal() {
-        this.welcomeModal.style.display = 'flex';
+    async startWelcomeSequence() {
+        // Display welcome messages as bot messages
+        await this.delay(500);
+        this.addMessage("🌟 Welcome to Your Mental Health Check-in", 'bot');
+        
+        await this.delay(2000);
+        this.addMessage("📝 <strong>Personal Journaling:</strong> We'll start with a reflection space where you can share your thoughts about your week in a judgment-free environment.", 'bot');
+        
+        await this.delay(3000);
+        this.addMessage("🧠 <strong>Mental Health Assessment:</strong> Next, I'll ask you some questions about your wellbeing to help me understand your current mental state and needs.", 'bot');
+        
+        await this.delay(3000);
+        this.addMessage("💙 <strong>Personalized Support:</strong> Finally, you'll receive tailored coping strategies and mental health resources based on your responses.", 'bot');
+        
+        await this.delay(3000);
+        this.addMessage("⚠️ <strong>Important:</strong> This is a supportive tool, not a replacement for professional therapy. If you're experiencing a crisis, please contact emergency services or a crisis hotline.", 'bot');
+        
+        await this.delay(3000);
+        this.startJournalingStage();
     }
     
-    hideWelcomeModal() {
-        this.welcomeModal.style.display = 'none';
+    async startJournalingStage() {
+        this.addMessage("📝 Let's begin with your personal reflection.", 'system');
+        
+        await this.delay(1500);
+        this.addMessage("This is a safe space for you to share your thoughts about your week. You can write about how you've been feeling emotionally, any challenges or stressors you've faced, positive moments or achievements, or anything else that's been on your mind.", 'bot');
+        
+        await this.delay(2000);
+        this.addMessage("📖 Please take a few moments to write about your week. There's no right or wrong way to express yourself here.", 'bot');
+        
+        this.updateStatus("Journaling stage - Share your thoughts");
     }
     
     updateCharCount() {
@@ -125,7 +149,12 @@ class MentalHealthChatbot {
     addMessage(content, type = 'bot', timestamp = true) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${type}`;
-        messageDiv.innerHTML = content;
+        
+        // Create content wrapper to handle HTML safely
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'message-content';
+        contentDiv.innerHTML = content;
+        messageDiv.appendChild(contentDiv);
         
         if (timestamp) {
             const timeDiv = document.createElement('div');
@@ -177,7 +206,7 @@ class MentalHealthChatbot {
         await this.delay(2000);
         
         this.hideLoading();
-        this.addMessage(`Thank you for sharing your thoughts. You wrote ${message.split(' ').length} words.`);
+        this.addMessage("✅ Thank you for sharing!", 'bot');
         this.addMessage("📝 Your reflections have been noted for our conversation.", 'system');
         
         await this.delay(1500);
@@ -409,40 +438,11 @@ Remember, you're taking positive steps by being mindful of your mental health. T
     }
 }
 
-// Global functions
-function startCheckIn() {
-    const modal = document.getElementById('welcomeModal');
-    modal.style.display = 'none';
-    
-    // Initialize chatbot
-    const chatbot = new MentalHealthChatbot();
-    chatbot.hideWelcomeModal();
-    
-    // Start Stage 1: Journaling
-    setTimeout(() => {
-        chatbot.addMessage("📝 Welcome to your personal mental health check-in!", 'system');
-        
-        setTimeout(() => {
-            chatbot.addMessage("This is a safe space for you to reflect on your week and share your thoughts.");
-            
-            setTimeout(() => {
-                chatbot.addMessage("Taking time to journal can help you process your experiences and emotions. There's no right or wrong way to express yourself here.");
-                
-                setTimeout(() => {
-                    chatbot.addMessage("📖 Please take a few moments to write about your week... You can share how you've been feeling emotionally, any challenges or stressors you've faced, positive moments or achievements, or anything else that's been on your mind.");
-                    chatbot.updateStatus("Journaling stage - Share your thoughts");
-                }, 2000);
-            }, 2000);
-        }, 2000);
-    }, 1000);
-}
-
 // Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-    // The chatbot will be initialized when the user clicks "Begin Check-in"
+    // Initialize chatbot immediately
     console.log('Mental Health Chatbot Web Interface Ready');
     
-    // Add some initial setup
-    const statusText = document.getElementById('statusText');
-    statusText.textContent = 'Ready to begin your mental health check-in';
+    // Start the chatbot
+    const chatbot = new MentalHealthChatbot();
 }); 

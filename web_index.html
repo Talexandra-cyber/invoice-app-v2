@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Check-in Chatbot</title>
+    <link rel="stylesheet" href="web_style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="title">🧠 Mental Health Check-in</h1>
+                <p class="subtitle">Your personal space for reflection and support</p>
+            </div>
+        </header>
+
+        <!-- Main Chat Interface -->
+        <main class="main-content">
+            <!-- Progress Indicator -->
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-label">Journal</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-label">Assessment</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-label">Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages Area -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Share your thoughts..." 
+                        rows="3"
+                        maxlength="2000"
+                    ></textarea>
+                    <div class="input-actions">
+                        <div class="character-count">
+                            <span id="charCount">0</span>/2000
+                        </div>
+                        <button id="sendButton" class="send-button" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-content">
+                <span class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span id="statusText">Ready to begin</span>
+                </span>
+                <div class="disclaimer">
+                    <small>This is not a replacement for professional mental health care</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Processing your response...</p>
+        </div>
+    </div>
+
+    <!-- Welcome Modal -->
+    <div class="modal-overlay" id="welcomeModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Welcome to Your Mental Health Check-in</h2>
+            </div>
+            <div class="modal-content">
+                <p>This is a safe space for you to reflect on your week and receive personalized support.</p>
+                <div class="journey-steps">
+                    <div class="step-preview">
+                        <span class="step-icon">📝</span>
+                        <div>
+                            <h3>Step 1: Journal</h3>
+                            <p>Reflect on your week and share your thoughts</p>
+                        </div>
+                    </div>
+                    <div class="step-preview">
+                        <span class="step-icon">🧠</span>
+                        <div>
+                            <h3>Step 2: Assessment</h3>
+                            <p>Answer questions about your mental well-being</p>
+                        </div>
+                    </div>
+                    <div class="step-preview">
+                        <span class="step-icon">🌟</span>
+                        <div>
+                            <h3>Step 3: Support</h3>
+                            <p>Receive personalized coping strategies</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="privacy-note">
+                    <p><strong>Privacy:</strong> Your responses are processed securely and not stored permanently.</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="startCheckIn()">Begin Check-in</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="web_app.js"></script>
+</body>
+</html> 

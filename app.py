@@ -159,8 +159,7 @@ def stage1_journaling():
     
     # Provide feedback
     if journal_entry:
-        word_count = len(journal_entry.split())
-        print(f"\n✅ Thank you for sharing! You wrote {word_count} words.")
+        print(f"\n✅ Thank you for sharing!")
         print("📝 Your thoughts have been noted for our conversation.")
     else:
         print("\n💭 That's okay if you don't feel like writing much today.")

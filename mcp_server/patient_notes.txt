@@ -1,3 +1,21 @@
 Patient Name: Jane Doe
 Appointment Date: 2025-07-24
 Notes: Patient reports experiencing heightened anxiety over the past two weeks, primarily related to work deadlines. Mentioned difficulty sleeping and a persistent feeling of being "on edge." Scored a 15 on the last GAD-7 assessment. Expressed interest in learning new coping strategies for managing stress. 
+
+--- NEW ENTRY (2025-07-23 18:07:01) ---
+Patient Name: Demo Patient
+Type: progress
+Note: Demo note added at 18:07:01 - Patient shows improvement in coping strategies.
+---
+
+--- NEW ENTRY (2025-07-24 09:00:00) ---
+Patient Name: John Smith
+Type: initial
+Note: Patient John Smith presented with concerns about sleep patterns, reporting difficulty falling asleep for the past month.
+---
+
+--- NEW ENTRY (2025-07-24 14:30:00) ---
+Patient Name: John Smith
+Type: follow-up
+Note: Follow-up: Prescribed a sleep hygiene routine. Patient reports moderate improvement. No signs of clinical depression.
+---

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Intake MCP Server Demo - FINAL</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+        
+        .status-light {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-online { background: #28a745; }
+        .status-offline { background: #dc3545; }
+        
+        .demo-section {
+            background: #f8f9fa;
+            border-left: 5px solid #007bff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 20px 0;
+            white-space: pre-wrap;
+            font-family: 'Monaco', 'Consolas', monospace;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 6px;
+            border-left: 5px solid;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+        
+        .alert-success {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        
+        .url-box {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            margin: 10px 0;
+            border: 1px solid #ced4da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏥 Clinical Intake MCP Server Demo</h1>
+        
+        <div class="demo-section">
+            <h3><span id="statusLight" class="status-light status-offline"></span>Server Status</h3>
+            
+            <div class="url-box">
+                <strong>Server URL:</strong> https://34fd8c802acf.ngrok-free.app
+            </div>
+            
+            <div class="alert alert-warning">
+                <strong>⚠️ Important:</strong> If buttons don't work, first visit 
+                <a href="https://34fd8c802acf.ngrok-free.app/status" target="_blank">
+                    the server URL directly
+                </a> to authorize your browser, then come back and try again.
+            </div>
+            
+            <button onclick="testConnection()">🔌 Test Connection</button>
+            <button onclick="checkServerStatus()">📊 Server Status</button>
+            <button onclick="showTools()">🛠️ Available Tools</button>
+        </div>
+        
+        <div class="demo-section">
+            <h3>🔍 Search Patient Notes</h3>
+            <p>Try searching for: <strong>anxiety</strong>, <strong>GAD-7</strong>, <strong>sleep</strong>, or <strong>Jane Doe</strong></p>
+            
+            <input type="text" id="searchInput" placeholder="Enter search term..." 
+                   style="padding: 10px; width: 300px; margin-right: 10px; border: 1px solid #ddd; border-radius: 4px;">
+            <button onclick="searchNotes()">🔍 Search Notes</button>
+            
+            <div style="margin: 10px 0;">
+                <button onclick="searchNotes('anxiety')">Search: Anxiety</button>
+                <button onclick="searchNotes('Jane Doe')">Search: Jane Doe</button>
+                <button onclick="searchNotes('sleep')">Search: Sleep</button>
+                <button onclick="searchNotes('GAD-7')">Search: GAD-7</button>
+            </div>
+        </div>
+        
+        <div class="results" id="results">
+            🚀 Welcome! Click any button above to test the Clinical Intake MCP Server.
+            
+            If you see CORS or network errors, please:
+            1. Visit https://34fd8c802acf.ngrok-free.app/status directly first
+            2. Click through any ngrok warning pages
+            3. Return here and try again
+        </div>
+    </div>
+
+    <script>
+        const BASE_URL = 'https://34fd8c802acf.ngrok-free.app';
+        let isServerOnline = false;
+        
+        function updateStatus(online) {
+            isServerOnline = online;
+            const light = document.getElementById('statusLight');
+            light.className = `status-light ${online ? 'status-online' : 'status-offline'}`;
+        }
+        
+        function showResult(title, data) {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            results.textContent = `[${timestamp}] ${title}\n\n${JSON.stringify(data, null, 2)}`;
+            updateStatus(true);
+        }
+        
+        function showError(title, error) {
+            const results = document.getElementById('results');
+            const timestamp = new Date().toLocaleTimeString();
+            results.textContent = `[${timestamp}] ❌ ${title}\n\nError: ${error}\n\n💡 SOLUTION:\n1. Visit ${BASE_URL}/status directly in a new tab\n2. Click through any warning pages\n3. Return here and try again`;
+            updateStatus(false);
+        }
+        
+        async function makeRequest(url, options = {}) {
+            const defaultHeaders = {
+                'ngrok-skip-browser-warning': 'true',
+                'Content-Type': 'application/json'
+            };
+            
+            const config = {
+                ...options,
+                headers: { ...defaultHeaders, ...options.headers }
+            };
+            
+            try {
+                const response = await fetch(url, config);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    throw new Error('Network connection failed. Please visit the server URL directly first.');
+                }
+                throw error;
+            }
+        }
+        
+        async function testConnection() {
+            try {
+                const data = await makeRequest(BASE_URL + '/');
+                showResult('✅ Connection Test Successful:', data);
+            } catch (error) {
+                showError('Connection Test Failed:', error.message);
+            }
+        }
+        
+        async function checkServerStatus() {
+            try {
+                const data = await makeRequest(BASE_URL + '/status');
+                showResult('✅ Server Status:', data);
+            } catch (error) {
+                showError('Server Status Check Failed:', error.message);
+            }
+        }
+        
+        async function showTools() {
+            try {
+                const data = await makeRequest(BASE_URL + '/tools');
+                showResult('🛠️ Available Tools:', data);
+            } catch (error) {
+                showError('Tools Request Failed:', error.message);
+            }
+        }
+        
+        async function searchNotes(query = null) {
+            const searchTerm = query || document.getElementById('searchInput').value.trim();
+            if (!searchTerm) {
+                showError('Search Failed:', 'Please enter a search term');
+                return;
+            }
+            
+            try {
+                const data = await makeRequest(BASE_URL + '/tools/search_patient_notes', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        query: searchTerm,
+                        case_sensitive: false
+                    })
+                });
+                showResult(`🔍 Search Results for "${searchTerm}":`, data);
+            } catch (error) {
+                showError(`Search Failed for "${searchTerm}":`, error.message);
+            }
+        }
+        
+        // Auto-test connection on page load
+        window.addEventListener('load', () => {
+            setTimeout(testConnection, 1000);
+        });
+        
+        // Allow Enter key in search box
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchNotes();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

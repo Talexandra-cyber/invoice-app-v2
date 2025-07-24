@@ -208,18 +208,35 @@
         }
         
         async function checkStatus() {
+            console.log('🔧 Debug: checkStatus function called');
+            console.log('🔧 Debug: BASE_URL =', BASE_URL);
+            
             try {
-                const response = await fetch(`${BASE_URL}/status`);
+                console.log('🔧 Debug: Making fetch request to:', `${BASE_URL}/status`);
+                const response = await fetch(`${BASE_URL}/status`, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
+                console.log('🔧 Debug: Response received:', response.status);
+                
                 const data = await response.json();
+                console.log('🔧 Debug: Data parsed:', data);
+                
                 displayResult('📊 Server Status:', data);
             } catch (error) {
+                console.error('🔧 Debug: Error in checkStatus:', error);
                 displayError('❌ Server Status Check Failed:', error.message);
             }
         }
         
         async function showTools() {
             try {
-                const response = await fetch(`${BASE_URL}/tools`);
+                const response = await fetch(`${BASE_URL}/tools`, {
+                    headers: {
+                        'ngrok-skip-browser-warning': 'true'
+                    }
+                });
                 const data = await response.json();
                 displayResult('🛠️ Available Tools:', data);
             } catch (error) {
@@ -228,17 +245,24 @@
         }
         
         async function searchNotes() {
+            console.log('🔧 Debug: searchNotes function called');
+            
             const query = document.getElementById('searchQuery').value;
+            console.log('🔧 Debug: Search query:', query);
+            
             if (!query.trim()) {
                 alert('Please enter a search term');
                 return;
             }
             
             try {
+                console.log('🔧 Debug: Making search request to:', `${BASE_URL}/tools/search_patient_notes`);
+                
                 const response = await fetch(`${BASE_URL}/tools/search_patient_notes`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': 'true'
                     },
                     body: JSON.stringify({
                         query: query,
@@ -246,9 +270,14 @@
                     })
                 });
                 
+                console.log('🔧 Debug: Search response:', response.status);
+                
                 const data = await response.json();
+                console.log('🔧 Debug: Search data:', data);
+                
                 displayResult(`🔍 Search Results for "${query}":`, data);
             } catch (error) {
+                console.error('🔧 Debug: Error in searchNotes:', error);
                 displayError('❌ Search Failed:', error.message);
             }
         }

@@ -21,10 +21,15 @@ logger = logging.getLogger("patient-notes-server")
 app = Flask(__name__)
 
 # Configure CORS to allow requests from GitHub Pages and local demo
-CORS(app, 
-     origins="*",  # Allow all origins for demo purposes
+CORS(app,
+     origins=[
+         "http://localhost:8000",  # Local HTTP server
+         "https://talexandra-cyber.github.io",  # GitHub Pages
+         "*"  # Allow all other origins for demo
+     ],
      methods=["GET", "POST", "OPTIONS"],
-     allow_headers=["Content-Type", "Authorization"])
+     allow_headers=["Content-Type", "Authorization", "ngrok-skip-browser-warning"],
+     supports_credentials=True)
 
 # Path to the patient notes file
 NOTES_FILE = Path(__file__).parent / "patient_notes.txt"

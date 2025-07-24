@@ -1,6 +1,7 @@
 # Simple HTTP server dependencies (Python 3.9 compatible)
 # Core web framework
 flask>=2.0.0
+flask-cors>=4.0.0
 
 # JSON handling and utilities
 typing-extensions>=4.0.0

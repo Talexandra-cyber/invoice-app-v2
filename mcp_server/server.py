@@ -11,6 +11,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -18,6 +19,12 @@ logger = logging.getLogger("patient-notes-server")
 
 # Create Flask app
 app = Flask(__name__)
+
+# Configure CORS to allow requests from GitHub Pages and local demo
+CORS(app, 
+     origins="*",  # Allow all origins for demo purposes
+     methods=["GET", "POST", "OPTIONS"],
+     allow_headers=["Content-Type", "Authorization"])
 
 # Path to the patient notes file
 NOTES_FILE = Path(__file__).parent / "patient_notes.txt"

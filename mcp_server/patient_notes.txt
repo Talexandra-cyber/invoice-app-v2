@@ -1,0 +1,3 @@
+Patient Name: Jane Doe
+Appointment Date: 2025-07-24
+Notes: Patient reports experiencing heightened anxiety over the past two weeks, primarily related to work deadlines. Mentioned difficulty sleeping and a persistent feeling of being "on edge." Scored a 15 on the last GAD-7 assessment. Expressed interest in learning new coping strategies for managing stress. 

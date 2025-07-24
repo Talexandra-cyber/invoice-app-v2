@@ -1,0 +1,12 @@
+# Simple HTTP server dependencies (Python 3.9 compatible)
+# Core web framework
+flask>=2.0.0
+
+# JSON handling and utilities
+typing-extensions>=4.0.0
+
+# Development and testing (optional)
+pytest>=7.0.0
+
+# Logging and monitoring (optional)
+structlog>=23.0.0 
